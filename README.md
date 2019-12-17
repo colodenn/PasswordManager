@@ -20,7 +20,7 @@ develop, they are also merged with master and provided with a release tag at the
 
   
 
-## Feature branches
+### Feature branches
 
   
 
@@ -58,7 +58,7 @@ _Deleted branch myfeature (was 05e9557)._
 ```bash
 $ git push origin develop
 ```
-## Release branches
+### Release branches
 
 The release is handled via separate branches, which are used to make last-minute changes and update the version number. Like the feature branches, release branches are branched off from develop
 
