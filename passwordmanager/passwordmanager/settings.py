@@ -38,6 +38,9 @@ AUTHENTICATION_BACKENDS = (
 )
 
 
+# Login redicrect
+LOGIN_REDIRECT_URL = 'dashboard'
+
 
 # Application definition
 
