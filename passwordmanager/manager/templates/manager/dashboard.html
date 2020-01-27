@@ -1,6 +1,40 @@
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+{% extends 'manager/base.html' %}
+{% block content %}
 <h1>Dashboard</h1>
+<div class="container">
+  
+  <div class="row">
+  
+<div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+  <div class="card-header">Add Password
+  </div>
+  <div class="card-body">
+  
+
+
+    <form action="/dashboard/addpassword" method="POST">
+      {% csrf_token %} 
+      <div class="form-group">
+          <label for="exampleInputUrl1">Url</label>
+          <input name="url" type="text" class="form-control" id="exampleInputUrl1" placeholder="url">
+        </div>
+      <div class="form-group">
+        <label for="exampleInputEmail1">Username</label>
+        <input name="username" type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="username">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input name="password" type="text" class="form-control" id="exampleInputPassword1" placeholder="password">
+      </div>
+     
+    
+      <button type="submit" value="Submit" class="btn btn-success">Add</button>
+    </form>
+
+
+  </div>
+</div>
+
 {% for p in passwordobject %}
     <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
         <form action="/dashboard/passwordform" method="POST">
@@ -39,33 +73,7 @@
         </div>
       </div>
 {% endfor %}
+</div>
+</div>
 
-<div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-    <div class="card-header">Add Password
-    </div>
-    <div class="card-body">
-    
-
-
-      <form action="/dashboard/addpassword" method="POST">
-        {% csrf_token %} 
-        <div class="form-group">
-            <label for="exampleInputUrl1">Url</label>
-            <input name="url" type="text" class="form-control" id="exampleInputUrl1" placeholder="url">
-          </div>
-        <div class="form-group">
-          <label for="exampleInputEmail1">Username</label>
-          <input name="username" type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="username">
-        </div>
-        <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
-          <input name="password" type="text" class="form-control" id="exampleInputPassword1" placeholder="password">
-        </div>
-       
-      
-        <button type="submit" value="Submit" class="btn btn-success">Add</button>
-      </form>
-
-
-    </div>
-  </div>
+{% endblock %}
