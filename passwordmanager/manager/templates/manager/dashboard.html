@@ -1,42 +1,61 @@
 {% extends 'manager/base.html' %}
 {% block content %}
-<h1>Dashboard</h1>
-<div class="container">
-  
-  <div class="row">
-  
-<div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-  <div class="card-header">Add Password
-  </div>
-  <div class="card-body">
-  
+<h1 style="text-align: center; color:white;">Dashboard</h1>
+<button  type="button" class="btn btn-primary btn-circle btn-sm  pink darken-4" data-toggle="modal" data-target="#exampleModal">
+  Add Password
+</button>
 
-
-    <form action="/dashboard/addpassword" method="POST">
-      {% csrf_token %} 
-      <div class="form-group">
-          <label for="exampleInputUrl1">Url</label>
-          <input name="url" type="text" class="form-control" id="exampleInputUrl1" placeholder="url">
-        </div>
-      <div class="form-group">
-        <label for="exampleInputEmail1">Username</label>
-        <input name="username" type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="username">
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add password</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-      <div class="form-group">
-        <label for="exampleInputPassword1">Password</label>
-        <input name="password" type="text" class="form-control" id="exampleInputPassword1" placeholder="password">
+      <div class="modal-body">
+        
+
+
+        <form action="/dashboard/addpassword" method="POST">
+          {% csrf_token %} 
+          <div class="form-group">
+              <label for="exampleInputUrl10">Url</label>
+              <input name="url" type="text" class="form-control" id="exampleInputUrl10" placeholder="url">
+            </div>
+          <div class="form-group">
+            <label for="exampleInputEmail10">Username</label>
+            <input name="username" type="name" class="form-control" id="exampleInputEmail10" aria-describedby="emailHelp" placeholder="username">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword10">Password</label>
+            <input name="password" type="text" class="form-control" id="exampleInputPassword10" placeholder="password">
+          </div>
+         
+        
+          <button type="submit" value="Submit" class="btn btn-success">Add</button>
+        </form>
+    
+
+
       </div>
      
-    
-      <button type="submit" value="Submit" class="btn btn-success">Add</button>
-    </form>
-
-
+    </div>
   </div>
 </div>
+<div class="container">
+  <!-- Button trigger modal -->
+
+  <div class="row">
+
+  {% if p %}
+ <h1 style="font-style: italic; text-align: center; color:white; position: fixed; transform: translate(-50%,-50%); left: 50%; top:50%;">No passwords added!</h1>
+{% endif %}
 
 {% for p in passwordobject %}
-    <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+    <div  style="margin: 20px;" class="card text-white bg-primary mb-3  pink darken-4" style="max-width: 18rem;">
         <form action="/dashboard/passwordform" method="POST">
             {% csrf_token %} 
 
@@ -55,19 +74,36 @@
               <input name="username" type="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ p.username }}">
             </div>
             <div class="form-group">
-              <label for="exampleInputPassword1">Password</label>
-              <input name="password" type="text" class="form-control" id="exampleInputPassword1" value="{{ p.password }}">
+              <label for="exampleInputPassword1">Password <span></span></label>
+              <input name="password" type="password" class="form-control" id="exampleInputPassword{{p.id}}" value="{{ p.password }}">
+              <span toggle="#exampleInputPassword{{p.id}}"  class="fa fa-fw fa-eye field-icon toggle-password{{p.id}}"></span>
             </div>
-           
-          
-            <button type="submit" class="btn btn-success">Submit</button>
+      
+           <script>
+           $(".toggle-password{{p.id}}").click(function() {
+          console.log("test");
+          $(this).toggleClass("fa-eye fa-eye-slash");
+          var input = $($(this).attr("toggle"));
+          if (input.attr("type") == "password") {
+            input.attr("type", "text");
+          } else {
+            input.attr("type", "password");
+          }
+          });
+</script>
+
+<div style="  float:left;
+width:100%;
+text-align:center;">
+            <button style="display:inline-block;" type="submit" class="btn btn-success">Submit</button>
             
             
           </form>
           <form action="/dashboard/deletepassword" method="POST">
             {% csrf_token %} 
             <input type="text" name="id" style="display: none;" value="{{ p.id  }}">
-            <button type="submit" class="btn btn-danger">Delete</button>
+            <button style="display:inline-block;" type="submit" class="btn btn-danger">Delete</button>
+          </div>
         </form>
 
         </div>
@@ -75,5 +111,20 @@
 {% endfor %}
 </div>
 </div>
+  </div>
+</div>
 
+<style>
+  .field-icon {
+float: right;
+margin-left: 20px;
+margin-top: -25px;
+position: relative;
+z-index: 2;
+}
+body{
+  background-image: url("../../static/manager/img/peniskopf.jpg");
+  background-size: 100%;
+}
+  </style>
 {% endblock %}
